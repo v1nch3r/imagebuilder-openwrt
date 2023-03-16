@@ -9,9 +9,9 @@ imagebuilder_repo="https://downloads.immortalwrt.org/releases/${releases}/target
 
 download_imagebuilder () {
     wget ${imagebuilder_repo}
-    tar xzvf immortalwrt-imagebuilder-* && rm -f immortalwrt-imagebuilder-*.tar.xz
+    tar -xJf immortalwrt-imagebuilder-* && rm -f immortalwrt-imagebuilder-*.tar.xz
     mv -f immortalwrt-imagebuilder-* ${openwrt_dir}
-    ls -a
+    ls -a ${openwrt_dir}/
 }
 download_imagebuilder
 
