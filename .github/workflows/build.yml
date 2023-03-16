@@ -9,9 +9,6 @@ jobs:
     if: ${{ github.event.repository.owner.id }} == ${{ github.event.sender.id }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@main
-      
       - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -24,6 +21,9 @@ jobs:
         sudo timedatectl set-timezone "Asia/Jakarta"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
+
+      - name: Checkout
+        uses: actions/checkout@main
 
       - name: Run make.sh
         run: sh make.sh
