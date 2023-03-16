@@ -1,2 +1,2 @@
 make_path="$(pwd)"
-${make_path}
+sudo ${make_path}
