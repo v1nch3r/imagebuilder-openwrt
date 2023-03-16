@@ -26,8 +26,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
 
-      - name: Run builder.sh
-        run: sh builder.sh
+      - name: Run make.sh
+        run: sh make.sh
       
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
