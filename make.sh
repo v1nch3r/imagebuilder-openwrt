@@ -23,7 +23,7 @@ custom_packages () {
     ls -a ${imagebuilder_path}/packages/
 }
 
-custom_packages
 download_imagebuilder
+custom_packages
 
 exit 0
