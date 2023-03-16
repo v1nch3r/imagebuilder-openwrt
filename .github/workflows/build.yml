@@ -10,6 +10,13 @@ jobs:
 
 
     steps:
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt update
+          sudo apt install ffmpeg -y
+          
       - name: Checkout
         uses: actions/checkout@main
 
