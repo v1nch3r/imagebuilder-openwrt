@@ -11,5 +11,6 @@ download_imagebuilder () {
     wget ${imagebuilder_repo}
     ls -a
 }
+download_imagebuilder
 
 exit 0
