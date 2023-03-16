@@ -1,39 +1,32 @@
-name: Immortalwrt
+make_path="$(pwd)"
+openwrt_dir="openwrt"
+imagebuilder_path="${make_path}/${openwrt_dir}"
+releases="21.02.1"
+targets="armvirt"
+processor="s905x"
+imagebuilder_repo="https://downloads.immortalwrt.org/releases/${releases}/targets/${targets}/64/immortalwrt-imagebuilder-21.02.1-armvirt-64.Linux-x86_64.tar.xz"
+my_packages="-luci-app-cpufreq -luci-app-turboacc -luci-app-filetransfer luci-theme-material luci-theme-argon luci-app-argon-config luci-app-ttyd luci-app-openclash luci-app-passwall luci-app-shutdown luci-app-netmonitor luci-app-zerotier nano htop openssh-sftp-server kmod-usb-net-cdc-ether usb-modeswitch comgt-ncm kmod-usb-net-huawei-cdc-ncm coreutils-nohup bash iptables dnsmasq-full curl ca-certificates ipset ip-full iptables-mod-tproxy iptables-mod-extra libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag unzip luci-compat luci luci-base"
+zero="immortalwrt-${releases}-${processor}.img"
+attach="$(losetup -P -f)
+detach="$(losetup -D)
 
-on:
-  workflow_dispatch:
+wget ${imagebuilder_repo}
+tar xf immortalwrt-imagebuilder-* && rm -r immortalwrt-imagebuilder-*.tar.xz
+mv -f immortalwrt-imagebuilder-* ${openwrt_dir}
+cp -r ${make_path}/packages/* ${imagebuilder_path}/packages
+make image PROFILE="Default" PACKAGES="${my_packages}" FILES="files"
 
-jobs:
-  build:
-    runs-on: ubuntu-20.04
-    if: ${{ github.event.repository.owner.id }} == ${{ github.event.sender.id }}
-
-
-    steps:
-      - name: Initialization environment
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
-          sudo -E apt-get -qq update
-          sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
-          sudo ln -sf /usr/share/zoneinfo/Asia/Jakarta /etc/localtime
-          docker image prune -a -f
-          mkdir -p workspace
-          
-      - name: Checkout
-        uses: actions/checkout@main
-
-      - name: Run make.sh
-        run: sh make.sh
-      
-      - name: Upload OpenWrt Firmware to Release
-        uses: ncipollo/release-action@main
-        if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
-        with:
-          tag: immortalwrt
-          artifacts: "*.img.gz"
-          allowUpdates: true
-          token: ${{ secrets.GITHUB_TOKEN }}
+dd if=/dev/zero of=${zero} bs=1M count=1500 status=progress
+parted -s ${zero} mklabel msdos
+parted -s ${zero} mkpart primary fat32 1 255
+parted -s ${zero} mkpart primary btrfs 255 1573
+${attach} ${zero}
+mkfs.vfat /dev/loop3p1
+mkfs.btrfs -f /dev/loop3p2
+fatlabel /dev/loop3p1 BOOT
+btrfs filesystem label /dev/loop3p2 ROOTFS
+${detach} && ${attach} ${zero}
+mkdir -p BOOTFS && mkdir -p ROOTFS
+mount /dev/loop4p1 BOOTFS/
+mount /dev/loop4p2 ROOTFS/
+lsblk
