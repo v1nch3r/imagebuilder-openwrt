@@ -89,9 +89,9 @@ adjustment_img () {
     rm -f ${bootfs_path}/dtb/amlogic/*.tar.gz
     tar -xzvf ${bootfs_path}/*.tar.gz -C ${bootfs_path}/
     rm -f ${bootfs_path}/*.tar.gz
-    sed -i 's/zImage/vmlinuz-${kernel}/g' ${bootfs_path}/uEnv.txt
-    sed -i 's/uInitrd/uInitrd-${kernel}/g' ${bootfs_path}/uEnv.txt
-    sed -i 's/custom.dtb/${dtb_targets}/g' ${bootfs_path}/uEnv.txt
+    sed -i "s|zImage|vmlinuz-${kernel}|g" ${bootfs_path}/uEnv.txt
+    sed -i "s|uInitrd|uInitrd-${kernel}|g" ${bootfs_path}/uEnv.txt
+    sed -i "s|custom.dtb|${dtb_targets}|g" ${bootfs_path}/uEnv.txt
     cat ${bootfs_path}/uEnv.txt
     ls -a ${make_path}
 }
