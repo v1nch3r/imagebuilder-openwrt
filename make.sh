@@ -98,7 +98,14 @@ adjustment_bootfs () {
 
 adjustment_rootfs () {
     tar -xzvf ${imagebuilder_path}/bin/targets/${targets}/64/*-default-rootfs.tar.gz -C ${rootfs_path}/
-    ls -a ${rootfs_path}/
+    cd ${rootfs_path}/lib/modules && rm -r *
+    wget ${modules_repo}
+    tar -xzvf *.tar.gz && rm -f *.tar.gz
+    cd ${kernel}/ && rm *
+    ls -a
+    find ./ -type f -name '*.ko' -exec ln -s {} ./ \;
+    ls -a
+    
 }
 
 download_imagebuilder
