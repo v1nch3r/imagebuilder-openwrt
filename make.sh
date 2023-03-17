@@ -77,9 +77,7 @@ adjustment_img () {
     mkdir -p BOOTFS && mkdir -p ROOTFS
     mount ${loop_new}p1 BOOTFS/
     mount ${loop_new}p2 ROOTFS/
-    chown $USER:$GROUPS ${make_path}/*.tar.gz
-    mv -f ${make_path}/*.tar.gz ${bootfs_path}/
-    tar -xzvf ${bootfs_path}/*.tar.gz
+    tar -xzvf ${make_path}/*.tar.gz -C ${bootfs_path}/
     ls -a
 }
 
