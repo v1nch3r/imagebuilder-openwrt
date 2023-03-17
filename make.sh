@@ -107,6 +107,14 @@ adjustment_rootfs () {
     sed -i "s|upload_max_filesize = 2M|upload_max_filesize = 2048M|g" ${rootfs_path}/etc/php.ini   
 }
 
+finish_build () {
+    cd ${make_path}
+    umount ${bootfs_path}
+    umount ${rootfs_path}
+    losetup -D && sleep 10
+    gzip immortalwrt-*
+}
+
 download_imagebuilder
 custom_packages
 build_rootfs
@@ -114,5 +122,6 @@ build_img
 format_img
 adjustment_bootfs
 adjustment_rootfs
+finish_build
 
 exit 0
