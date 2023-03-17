@@ -78,8 +78,16 @@ adjustment_img () {
     mount ${loop_new}p1 BOOTFS/
     mount ${loop_new}p2 ROOTFS/
     tar -xzvf ${make_path}/*.tar.gz -C ${bootfs_path}/
-    ls -a
+    rm -f ${make_path}/*.tar.gz
+    wget -P ${bootfs_path}/dtb/amlogic/ ${dtb_repo}
+    wget -P ${bootfs_path}/ ${boot_repo}
+    tar -xzvf ${bootfs_path}/dtb/amlogic/*.tar.gz -C ${bootfs_path}/dtb/amlogic/
+    rm -f ${bootfs_path}/dtb/amlogic/*.tar.gz
+    tar -xzvf ${bootfs_path}/*.tar.gz -C ${bootfs_path}/
+    rm -f ${bootfs_path}/*.tar.gz
+    ls -a ${make_path}
     ls -a ${bootfs_path}/
+    ls -a ${bootfs_path}/dtb/amlogic/
 }
 
 download_imagebuilder
