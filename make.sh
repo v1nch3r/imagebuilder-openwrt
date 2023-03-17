@@ -52,13 +52,22 @@ build_img () {
     parted -s ${zero} mklabel msdos
     parted -s ${zero} mkpart primary ${bootfs} 1 255
     parted -s ${zero} mkpart primary ${rootfs} 255 1573
-    ls -a
-    
+}
+
+adjustment_img () {
+    loop_new="$(losetup -P -f --show "${zero}")"
+    mkfs.vfat ${loop_new}p1
+    mkfs.btrfs -f ${loop_new}p2
+    fatlabel ${loop_new}p1 BOOT
+    btrfs filesystem label ${loop_new}p2 ROOTFS
+    losetup -D && sleep 5 && ${loop_new}
+    lsblk
 }
 
 download_imagebuilder
 custom_packages
 build_rootfs
 build_img
+adjustment_img
 
 exit 0
