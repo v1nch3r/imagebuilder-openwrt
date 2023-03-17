@@ -97,7 +97,7 @@ adjustment_bootfs () {
 }
 
 adjustment_rootfs () {
-    mv -f ${imagebuilder_path}/bin/targets/${targets}/64/*-default-rootfs.tar.gz ${rootfs_path}/
+    tar -xzvf ${imagebuilder_path}/bin/targets/${targets}/64/*-default-rootfs.tar.gz -C ${rootfs_path}/
     ls -a ${rootfs_path}/
 }
 
