@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Run make.sh
-        run: sh make.sh
+        run: sudo sh make.sh
       
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
