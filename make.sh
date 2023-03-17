@@ -81,6 +81,7 @@ adjustment_img () {
     mv -f ${make_path}/*.tar.gz ${bootfs_path}/
     tar -xzvf ${bootfs_path}/*.tar.gz
     ls -a
+    ls -a ${bootfs_path}/
 }
 
 download_imagebuilder
