@@ -85,7 +85,7 @@ adjustment_img () {
     rm -f ${bootfs_path}/dtb/amlogic/*.tar.gz
     tar -xzvf ${bootfs_path}/*.tar.gz -C ${bootfs_path}/
     rm -f ${bootfs_path}/*.tar.gz
-    ls -a ${make_path}
+    ls -a ${make_path}/
     ls -a ${bootfs_path}/
     ls -a ${bootfs_path}/dtb/amlogic/
 }
