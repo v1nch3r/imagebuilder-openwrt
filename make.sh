@@ -77,9 +77,9 @@ format_img () {
 }
 
 adjustment_img () {
-    mkdir -p BOOTFS && mkdir -p ROOTFS
-    mount ${loop_new}p1 BOOTFS/
-    mount ${loop_new}p2 ROOTFS/
+    mkdir -p ${bootfs_dir} && mkdir -p ${rootfs_dir}
+    mount ${loop_new}p1 ${bootfs_dir}/
+    mount ${loop_new}p2 ${rootfs_dir}/
     tar -xzvf ${make_path}/*.tar.gz -C ${bootfs_path}/
     rm -f ${make_path}/*.tar.gz
     wget -P ${bootfs_path}/dtb/amlogic/ ${dtb_repo}
@@ -89,10 +89,11 @@ adjustment_img () {
     rm -f ${bootfs_path}/dtb/amlogic/*.tar.gz
     tar -xzvf ${bootfs_path}/*.tar.gz -C ${bootfs_path}/
     rm -f ${bootfs_path}/*.tar.gz
-    sed -i 's/zImage/vmlinuz-${kernel}/g' uEnv.txt
-    sed -i 's/uInitrd/uInitrd-${kernel}/g' uEnv.txt
-    sed -i 's/custom.dtb/${dtb_targets}/g' uEnv.txt
-    cat uEnv.txt
+    sed -i 's/zImage/vmlinuz-${kernel}/g' ${bootfs_path}/uEnv.txt
+    sed -i 's/uInitrd/uInitrd-${kernel}/g' ${bootfs_path}/uEnv.txt
+    sed -i 's/custom.dtb/${dtb_targets}/g' ${bootfs_path}/uEnv.txt
+    cat ${bootfs_path}/uEnv.txt
+    ls -a ${make_path}
 }
 
 download_imagebuilder
