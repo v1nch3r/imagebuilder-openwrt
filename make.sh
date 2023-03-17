@@ -60,8 +60,7 @@ adjustment_img () {
     mkfs.btrfs -f ${loop_new}p2
     fatlabel ${loop_new}p1 BOOT
     btrfs filesystem label ${loop_new}p2 ROOTFS
-    losetup -D && sleep 5 && ${loop_new}
-    lsblk
+    lsblk -f
 }
 
 download_imagebuilder
