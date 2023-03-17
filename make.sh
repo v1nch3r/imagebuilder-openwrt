@@ -102,9 +102,9 @@ adjustment_rootfs () {
     wget ${modules_repo}
     tar -xzvf *.tar.gz && rm -f *.tar.gz
     cd ${kernel}/ && rm *
-    ls -a
     find ./ -type f -name '*.ko' -exec ln -s {} ./ \;
-    ls -a
+    mv -f ${make_path}/uci-defaults/* ${rootfs_path}/etc/uci-defaults/
+    ls -a ${rootfs_path}/etc/uci-defaults/
     
 }
 
