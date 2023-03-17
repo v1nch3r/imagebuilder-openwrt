@@ -79,6 +79,7 @@ adjustment_img () {
     mount ${loop_new}p2 ROOTFS/
     tar -xzvf ${make_path}/*.tar.gz -C ${bootfs_path}/
     ls -a
+    ls -a ${bootfs_path}/
 }
 
 download_imagebuilder
