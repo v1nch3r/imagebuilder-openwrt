@@ -61,6 +61,7 @@ adjustment_img () {
     fatlabel ${loop_new}p1 BOOT
     btrfs filesystem label ${loop_new}p2 ROOTFS
     losetup -D && losetup -P -f ${zero}
+    lsblk -f
 }
 
 download_imagebuilder
