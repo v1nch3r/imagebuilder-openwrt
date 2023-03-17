@@ -19,13 +19,14 @@ kernel="6.0.5-flippy-78+"
 bootloader_bin="u-boot.bin"
 bootloader_ext="u-boot.ext"
 dtb_targets="meson-gxl-s905x-p212.dtb"
+username="vincherofficial"
 
 # config repo
 imagebuilder_repo="https://downloads.immortalwrt.org/releases/${releases}/targets/${targets}/64/immortalwrt-imagebuilder-${releases}-${targets}-64.Linux-x86_64.tar.xz"
 bootloader_repo="https://raw.githubusercontent.com/ophub/amlogic-s9xxx-armbian/main/build-armbian/u-boot/amlogic/overload/u-boot-p212.bin"
-boot_repo="https://github.com/vincherofficial/kernel/releases/download/${kernel}/boot-${kernel}.tar.gz"
-dtb_repo="https://github.com/vincherofficial/kernel/releases/download/${kernel}/dtb-amlogic-${kernel}.tar.gz"
-modules_repo="https://github.com/vincherofficial/kernel/releases/download/${kernel}/modules-${kernel}.tar.gz"
+boot_repo="https://github.com/${username}/kernel/releases/download/${kernel}/boot-${kernel}.tar.gz"
+dtb_repo="https://github.com/${username}/kernel/releases/download/${kernel}/dtb-amlogic-${kernel}.tar.gz"
+modules_repo="https://github.com/${username}/kernel/releases/download/${kernel}/modules-${kernel}.tar.gz"
 luci_app_openclash="https://github.com/vernesong/OpenClash/releases/download/v0.45.59-beta/luci-app-openclash_0.45.59-beta_all.ipk"
 luci_app_netmon="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-netmon_1.3_all.ipk"
 luci_app_shutdown="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-shutdown_1.3_all.ipk"
@@ -92,8 +93,6 @@ adjustment_bootfs () {
     sed -i "s|zImage|vmlinuz-${kernel}|g" ${bootfs_path}/uEnv.txt
     sed -i "s|uInitrd|uInitrd-${kernel}|g" ${bootfs_path}/uEnv.txt
     sed -i "s|custom.dtb|${dtb_targets}|g" ${bootfs_path}/uEnv.txt
-    cat ${bootfs_path}/uEnv.txt
-    ls -a ${make_path}
 }
 
 adjustment_rootfs () {
@@ -105,9 +104,7 @@ adjustment_rootfs () {
     find ./ -type f -name '*.ko' -exec ln -s {} ./ \;
     mv -f ${make_path}/uci-defaults/* ${rootfs_path}/etc/uci-defaults/
     sed -i "s|post_max_size = 8M|post_max_size = 2048M|g" ${rootfs_path}/etc/php.ini
-    sed -i "s|upload_max_filesize = 2M|upload_max_filesize = 2048M|g" ${rootfs_path}/etc/php.ini
-    cat ${rootfs_path}/etc/php.ini
-    
+    sed -i "s|upload_max_filesize = 2M|upload_max_filesize = 2048M|g" ${rootfs_path}/etc/php.ini   
 }
 
 download_imagebuilder
