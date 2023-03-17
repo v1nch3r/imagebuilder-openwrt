@@ -15,6 +15,7 @@ imagebuilder_repo="https://downloads.immortalwrt.org/releases/${releases}/target
 luci_app_openclash="https://github.com/vernesong/OpenClash/releases/download/v0.45.59-beta/luci-app-openclash_0.45.59-beta_all.ipk"
 luci_app_netmon="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-netmon_1.3_all.ipk"
 luci_app_shutdown="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-shutdown_1.3_all.ipk"
+luci_app_tinyfm="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-tinyfm_2.5_all.ipk"
 
 # config package
 my_packages="-luci-app-cpufreq -luci-app-turboacc -luci-app-filetransfer luci-theme-material luci-theme-argon luci-app-argon-config luci-app-ttyd luci-app-openclash luci-app-passwall luci-app-shutdown luci-app-netmon luci-app-zerotier nano htop openssh-sftp-server kmod-usb-net-cdc-ether usb-modeswitch comgt-ncm kmod-usb-net-huawei-cdc-ncm coreutils-nohup bash iptables dnsmasq-full curl ca-certificates ipset ip-full iptables-mod-tproxy iptables-mod-extra libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag unzip luci-compat luci luci-base"
@@ -29,6 +30,7 @@ custom_packages () {
     wget -P ${imagebuilder_path}/packages/ ${luci_app_openclash}
     wget -P ${imagebuilder_path}/packages/ ${luci_app_netmon}
     wget -P ${imagebuilder_path}/packages/ ${luci_app_shutdown}
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_tinyfm}
 }
 
 build_rootfs () {
