@@ -76,7 +76,7 @@ format_img () {
     losetup -D && sleep 10 && losetup -P -f ${zero}
 }
 
-adjustment_img () {
+adjustment_bootfs () {
     mkdir -p ${bootfs_dir} && mkdir -p ${rootfs_dir}
     mount ${loop_new}p1 ${bootfs_dir}/
     mount ${loop_new}p2 ${rootfs_dir}/
@@ -96,11 +96,17 @@ adjustment_img () {
     ls -a ${make_path}
 }
 
+adjustment_rootfs () {
+    mv -f ${imagebuilder_path}/bin/targets/${targets}/64/*-default-rootfs.tar.gz ${rootfs_path}/
+    ls -a ${rootfs_path}/
+}
+
 download_imagebuilder
 custom_packages
 build_rootfs
 build_img
 format_img
-adjustment_img
+adjustment_bootfs
+adjustment_rootfs
 
 exit 0
