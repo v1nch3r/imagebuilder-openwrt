@@ -16,6 +16,8 @@ releases="21.02.1"
 targets="armvirt"
 amlogic="s905x"
 kernel="6.0.5-flippy-78+"
+bootloader_bin="u-boot.bin"
+bootloader_ext="u-boot.ext"
 
 # config repo
 imagebuilder_repo="https://downloads.immortalwrt.org/releases/${releases}/targets/${targets}/64/immortalwrt-imagebuilder-${releases}-${targets}-64.Linux-x86_64.tar.xz"
@@ -81,6 +83,7 @@ adjustment_img () {
     rm -f ${make_path}/*.tar.gz
     wget -P ${bootfs_path}/dtb/amlogic/ ${dtb_repo}
     wget -P ${bootfs_path}/ ${boot_repo}
+    wget -O ${bootfs_path}/${bootloader_ext} ${bootloader_repo}
     tar -xzvf ${bootfs_path}/dtb/amlogic/*.tar.gz -C ${bootfs_path}/dtb/amlogic/
     rm -f ${bootfs_path}/dtb/amlogic/*.tar.gz
     tar -xzvf ${bootfs_path}/*.tar.gz -C ${bootfs_path}/
