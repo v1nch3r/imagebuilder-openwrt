@@ -100,7 +100,7 @@ adjustment_rootfs () {
     cd ${rootfs_path}/lib/modules && rm -r *
     wget ${modules_repo}
     tar -xzvf *.tar.gz && rm -f *.tar.gz
-    cd ${kernel}/ && rm *
+    cd ${kernel}/ && rm -v !("kernel")
     find ./ -type f -name '*.ko' -exec ln -s {} ./ \;
     mv -f ${make_path}/uci-defaults/* ${rootfs_path}/etc/uci-defaults/
     sed -i "s|post_max_size = 8M|post_max_size = 2048M|g" ${rootfs_path}/etc/php.ini
