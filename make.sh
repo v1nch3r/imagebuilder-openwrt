@@ -5,6 +5,11 @@
 make_path="$(pwd)"
 openwrt_dir="openwrt"
 imagebuilder_path="${make_path}/${openwrt_dir}"
+bootfs_dir="BOOTFS"
+rootfs_dir="ROOTFS"
+bootfs_path="${make_path}/${bootfs_dir}"
+rootfs_path="${make_path}/${rootfs_dir}"
+
 
 # targets
 releases="21.02.1"
@@ -72,10 +77,9 @@ adjustment_img () {
     mkdir -p BOOTFS && mkdir -p ROOTFS
     mount ${loop_new}p1 BOOTFS/
     mount ${loop_new}p2 ROOTFS/
-    mv -f ${make_path}/*.tar.gz ${make_path}/BOOTFS
-    tar -xzvf ${make_path}/BOOTFS/*.tar.gz
-    rm -f ${make_path}/BOOTFS/*.tar.gz
-    ls -a ${make_path}/BOOTFS/
+    mv -f ${make_path}/bootfs.tar.gz ${bootfs_path}/
+    ls -a
+    ls -a ${bootfs_path}/
 }
 
 download_imagebuilder
