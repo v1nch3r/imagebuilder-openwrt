@@ -54,13 +54,19 @@ build_img () {
     parted -s ${zero} mkpart primary ${rootfs} 255 1573
 }
 
-adjustment_img () {
+format_img () {
     loop_new="$(losetup -P -f --show "${zero}")"
     mkfs.vfat ${loop_new}p1
     mkfs.btrfs -f ${loop_new}p2
     fatlabel ${loop_new}p1 BOOT
     btrfs filesystem label ${loop_new}p2 ROOTFS
     losetup -D && sleep 10 && losetup -P -f ${zero}
+}
+
+adjustment_img () {
+    mkdir -p BOOTFS && mkdir -p ROOTFS
+    mount ${loop_new}p1 BOOTFS/
+    mount ${loop_new}p2 ROOTFS/
     lsblk -f
 }
 
@@ -68,6 +74,7 @@ download_imagebuilder
 custom_packages
 build_rootfs
 build_img
+format_img
 adjustment_img
 
 exit 0
