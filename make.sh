@@ -104,7 +104,7 @@ adjustment_rootfs () {
     cd ${kernel}/ && rm *
     find ./ -type f -name '*.ko' -exec ln -s {} ./ \;
     mv -f ${make_path}/uci-defaults/* ${rootfs_path}/etc/uci-defaults/
-    ls -a ${rootfs_path}/etc/uci-defaults/
+    cat ${rootfs_path}/etc/php.ini
     
 }
 
