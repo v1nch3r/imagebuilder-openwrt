@@ -18,6 +18,7 @@ amlogic="s905x"
 kernel="6.0.5-flippy-78+"
 bootloader_bin="u-boot.bin"
 bootloader_ext="u-boot.ext"
+dtb_targets="meson-gxl-s905x-p212.dtb"
 
 # config repo
 imagebuilder_repo="https://downloads.immortalwrt.org/releases/${releases}/targets/${targets}/64/immortalwrt-imagebuilder-${releases}-${targets}-64.Linux-x86_64.tar.xz"
@@ -88,9 +89,10 @@ adjustment_img () {
     rm -f ${bootfs_path}/dtb/amlogic/*.tar.gz
     tar -xzvf ${bootfs_path}/*.tar.gz -C ${bootfs_path}/
     rm -f ${bootfs_path}/*.tar.gz
-    ls -a ${make_path}/
-    ls -a ${bootfs_path}/
-    ls -a ${bootfs_path}/dtb/amlogic/
+    sed -i 's/zImage/vmlinuz-${kernel}/g' uEnv.txt
+    sed -i 's/uInitrd/uInitrd-${kernel}/g' uEnv.txt
+    sed -i 's/custom.dtb/${dtb_targets}/g' uEnv.txt
+    cat uEnv.txt
 }
 
 download_imagebuilder
