@@ -27,16 +27,21 @@ bootloader_repo="https://raw.githubusercontent.com/ophub/amlogic-s9xxx-armbian/m
 boot_repo="https://github.com/${username}/kernel/releases/download/${kernel}/boot-${kernel}.tar.gz"
 dtb_repo="https://github.com/${username}/kernel/releases/download/${kernel}/dtb-amlogic-${kernel}.tar.gz"
 modules_repo="https://github.com/${username}/kernel/releases/download/${kernel}/modules-${kernel}.tar.gz"
+clash="https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-arm64-v1.13.0.gz"
+clash_tun="https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.04.gz"
+clash_meta="https://github.com/djoeni/Clash.Meta/releases/download/Prerelease-Alpha/clash.meta-linux-arm64-alpha-2441955.gz"
 luci_app_openclash="https://github.com/vernesong/OpenClash/releases/download/v0.45.59-beta/luci-app-openclash_0.45.59-beta_all.ipk"
 luci_app_netmon="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-netmon_1.3_all.ipk"
 luci_app_shutdown="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-shutdown_1.3_all.ipk"
 luci_app_tinyfm="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-tinyfm_2.5_all.ipk"
+luci_app_base64="https://raw.githubusercontent.com/noct99/blog.vpngame.com/main/luci-app-base64_1.0_all.ipk"
+luci_app_adguardhome="https://github.com/rufengsuixing/luci-app-adguardhome/releases/download/1.8-11/luci-app-adguardhome_1.8-11_all.ipk"
 
 # config package
 unused_packages="-luci-app-cpufreq -luci-app-turboacc -luci-app-filetransfer"
 driver_packages="kmod-usb-net-cdc-ether usb-modeswitch comgt-ncm kmod-usb-net-huawei-cdc-ncm"
 openclash_iptables="coreutils-nohup bash iptables dnsmasq-full curl ca-certificates ipset ip-full iptables-mod-tproxy iptables-mod-extra libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag unzip luci-compat luci luci-base"
-my_packages="${unused_packages} luci-theme-material luci-theme-argon luci-app-argon-config luci-app-ttyd luci-app-openclash luci-app-passwall luci-app-shutdown luci-app-netmon luci-app-zerotier nano htop openssh-sftp-server ${driver_packages} ${openclash_iptables}"
+my_packages="${unused_packages} luci-theme-material luci-theme-argon luci-app-argon-config luci-app-ttyd luci-app-openclash luci-app-passwall luci-app-shutdown luci-app-netmon luci-app-zerotier luci-app-base64 luci-app-adguardhome nano htop openssh-sftp-server ${driver_packages} ${openclash_iptables}"
 
 # config img
 zero="immortalwrt-${releases}-${amlogic}-${kernel}.img"
@@ -56,6 +61,8 @@ custom_packages () {
     wget -P ${imagebuilder_path}/packages/ ${luci_app_netmon}
     wget -P ${imagebuilder_path}/packages/ ${luci_app_shutdown}
     wget -P ${imagebuilder_path}/packages/ ${luci_app_tinyfm}
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_base64}
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_adguardhome}
 }
 
 build_rootfs () {
@@ -110,6 +117,18 @@ adjustment_rootfs () {
     sed -i "s|upload_max_filesize = 2M|upload_max_filesize = 2048M|g" ${rootfs_path}/etc/php.ini   
 }
 
+adding_clash_core () {
+    cd ${rootfs_path}/etc/openclash/core/
+    wget ${clash} && gunzip *.gz
+    mv -f clash* clash && rm -f *.gz
+    wget ${clash_tun} && gunzip *.gz
+    mv -f clash* clash_tun && rm -f *.gz
+    wget ${clash_meta} && gunzip *.gz
+    mv -f clash* clash_meta && rm -f *.gz
+    ls -a
+}
+
+
 finish_build () {
     cd ${make_path}
     umount ${bootfs_path}
@@ -125,6 +144,7 @@ build_img
 format_img
 adjustment_bootfs
 adjustment_rootfs
+adding_clash_core
 finish_build
 
 exit 0
