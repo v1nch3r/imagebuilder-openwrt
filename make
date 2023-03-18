@@ -27,7 +27,7 @@ boot_repo="https://github.com/${username}/kernel/releases/download/${kernel}/boo
 dtb_repo="https://github.com/${username}/kernel/releases/download/${kernel}/dtb-amlogic-${kernel}.tar.gz"
 modules_repo="https://github.com/${username}/kernel/releases/download/${kernel}/modules-${kernel}.tar.gz"
 clash="https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-arm64-v1.13.0.gz"
-clash_tun="https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.04.gz"
+clash_tun="https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.18.gz"
 clash_meta="https://github.com/djoeni/Clash.Meta/releases/download/Prerelease-Alpha/clash.meta-linux-arm64-alpha-2441955.gz"
 luci_app_openclash="https://github.com/vernesong/OpenClash/releases/download/v0.45.59-beta/luci-app-openclash_0.45.59-beta_all.ipk"
 luci_app_netmon="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-netmon_1.3_all.ipk"
@@ -48,10 +48,6 @@ zero="immortalwrt-${releases}-${amlogic}-${kernel}.img"
 # file system type
 bootfs="fat32"
 rootfs="btrfs"
-
-error_msg () {
-    set -e
-}
 
 download_imagebuilder () {
     wget ${imagebuilder_repo}
@@ -113,7 +109,7 @@ adjustment_rootfs () {
     cd ${rootfs_path}/lib/modules && rm -r *
     wget ${modules_repo}
     tar -xzvf *.tar.gz && rm -f *.tar.gz
-    cd ${kernel}/ && rm -f modules* build source
+    cd ${kernel}/ && rm *
     find ./ -type f -name '*.ko' -exec ln -s {} ./ \;
     mv -f ${make_path}/uci-defaults/* ${rootfs_path}/etc/uci-defaults/
     sed -i "s|post_max_size = 8M|post_max_size = 2048M|g" ${rootfs_path}/etc/php.ini
@@ -138,7 +134,6 @@ finish_build () {
     gzip immortalwrt-*
 }
 
-error_msg
 download_imagebuilder
 custom_packages
 build_rootfs
