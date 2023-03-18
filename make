@@ -18,7 +18,7 @@ kernel="6.0.5-flippy-78+"
 bootloader_bin="u-boot.bin"
 bootloader_ext="u-boot.ext"
 dtb_targets="meson-gxl-s905x-p212.dtb"
-username="vincherofficial"
+username="v1nch3r"
 
 # config repo
 imagebuilder_repo="https://downloads.immortalwrt.org/releases/${releases}/targets/${targets}/64/immortalwrt-imagebuilder-${releases}-${targets}-64.Linux-x86_64.tar.xz"
