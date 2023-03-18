@@ -10,7 +10,6 @@ rootfs_dir="ROOTFS"
 bootfs_path="${make_path}/${bootfs_dir}"
 rootfs_path="${make_path}/${rootfs_dir}"
 
-
 # targets
 releases="21.02.1"
 targets="armvirt"
@@ -126,7 +125,6 @@ adding_clash_core () {
     wget ${clash_meta} && gunzip *.gz
     mv -f clash.* clash_meta && rm -f *.gz
 }
-
 
 finish_build () {
     cd ${make_path}
