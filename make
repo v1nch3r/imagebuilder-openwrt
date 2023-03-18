@@ -138,6 +138,7 @@ finish_build () {
     gzip immortalwrt-*
 }
 
+error_msg
 download_imagebuilder
 custom_packages
 build_rootfs
