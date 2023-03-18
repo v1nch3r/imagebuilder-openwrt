@@ -14,8 +14,8 @@ jobs:
 
       - name: Run make.sh
         run: |
-          sudo chmod +x make.sh
-          sudo ./make.sh
+          sudo chmod +x make
+          sudo ./make
       
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
