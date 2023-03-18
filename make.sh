@@ -120,11 +120,11 @@ adjustment_rootfs () {
 adding_clash_core () {
     cd ${rootfs_path}/etc/openclash/core/
     wget ${clash} && gunzip *.gz
-    mv -f clash* clash && rm -f *.gz
+    mv -f clash-* clash && rm -f *.gz
     wget ${clash_tun} && gunzip *.gz
-    mv -f clash* clash_tun && rm -f *.gz
+    mv -f clash-* clash_tun && rm -f *.gz
     wget ${clash_meta} && gunzip *.gz
-    mv -f clash* clash_meta && rm -f *.gz
+    mv -f clash.* clash_meta && rm -f *.gz
     ls -a
 }
 
