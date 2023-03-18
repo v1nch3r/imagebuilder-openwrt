@@ -17,6 +17,12 @@ patching2 () {
     sed -i "s|dler:section(SimpleSection).template  = "openclash/dlercloud"|-- dler:section(SimpleSection).template  = "openclash/dlercloud"|g" ${clientui_path}
 }
 
+patch_done () {
+    echo "patching done..."
+}
+
+patching1
+patching2
+patch_done
+
 exit 0
-
-
