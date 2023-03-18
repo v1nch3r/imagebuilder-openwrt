@@ -125,7 +125,6 @@ adding_clash_core () {
     mv -f clash-* clash_tun && rm -f *.gz
     wget ${clash_meta} && gunzip *.gz
     mv -f clash.* clash_meta && rm -f *.gz
-    ls -a
 }
 
 
