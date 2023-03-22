@@ -11,7 +11,7 @@ bootfs_path="${make_path}/${bootfs_dir}"
 rootfs_path="${make_path}/${rootfs_dir}"
 
 # targets
-releases="21.02.5"
+releases="22.03.5"
 targets="armvirt"
 amlogic="s905x"
 kernel="6.0.5-flippy-78+"
@@ -35,12 +35,13 @@ luci_app_shutdown="https://github.com/helmiau/helmiwrt-packages/releases/downloa
 luci_app_tinyfm="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-tinyfm_2.5_all.ipk"
 luci_app_base64="https://raw.githubusercontent.com/noct99/blog.vpngame.com/main/luci-app-base64_1.0_all.ipk"
 luci_app_adguardhome="https://github.com/rufengsuixing/luci-app-adguardhome/releases/download/1.8-11/luci-app-adguardhome_1.8-11_all.ipk"
+luci_app_zerotier="https://github.com/rufengsuixing/luci-app-zerotier/releases/download/1.0-16/luci-app-zerotier_1.0-16_all.ipk"
 
 # config package
-unused_packages="-luci-app-cpufreq -luci-app-turboacc -luci-app-filetransfer"
+unused_packages="-dnsmasq"
 driver_packages="kmod-usb-net-cdc-ether usb-modeswitch comgt-ncm kmod-usb-net-huawei-cdc-ncm"
-openclash_iptables="coreutils-nohup bash iptables dnsmasq-full curl ca-certificates ipset ip-full iptables-mod-tproxy iptables-mod-extra libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag unzip luci-compat luci luci-base"
-my_packages="${unused_packages} luci-theme-material luci-theme-argon luci-app-argon-config luci-app-ttyd luci-app-openclash luci-app-passwall luci-app-shutdown luci-app-netmon luci-app-zerotier luci-app-base64 luci-app-adguardhome luci-app-vnstat2 lsblk nano htop openssh-sftp-server ${driver_packages} ${openclash_iptables}"
+openclash_nftables="coreutils-nohup bash dnsmasq-full curl ca-certificates ipset ip-full libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag unzip kmod-nft-tproxy luci-compat luci luci-base"
+my_packages="${unused_packages} luci-theme-material luci-app-ttyd luci-app-openclash luci-app-shutdown luci-app-netmon luci-app-zerotier luci-app-base64 luci-app-adguardhome luci-app-vnstat2 lsblk nano htop openssh-sftp-server ${driver_packages} ${openclash_nftables}"
 
 # config img
 zero="openwrt-${releases}-${amlogic}-${kernel}.img"
@@ -67,6 +68,7 @@ custom_packages () {
     wget -P ${imagebuilder_path}/packages/ ${luci_app_tinyfm} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_base64} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_adguardhome} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_zerotier} || error_msg
 }
 
 build_rootfs () {
