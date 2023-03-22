@@ -1,1 +1,1 @@
-# imagebuilder-immortalwrt
+# imagebuilder-openwrt
