@@ -21,7 +21,7 @@ dtb_targets="meson-gxl-s905x-p212.dtb"
 username="v1nch3r"
 
 # config repo
-imagebuilder_repo="https://downloads.immortalwrt.org/releases/${releases}/targets/${targets}/64/immortalwrt-imagebuilder-${releases}-${targets}-64.Linux-x86_64.tar.xz"
+imagebuilder_repo="https://downloads.openwrt.org/releases/${releases}/targets/${targets}/64/openwrt-imagebuilder-${releases}-${targets}-64.Linux-x86_64.tar.xz"
 bootloader_repo="https://raw.githubusercontent.com/ophub/amlogic-s9xxx-armbian/main/build-armbian/u-boot/amlogic/overload/u-boot-p212.bin"
 boot_repo="https://github.com/${username}/kernel/releases/download/${kernel}/boot-${kernel}.tar.gz"
 dtb_repo="https://github.com/${username}/kernel/releases/download/${kernel}/dtb-amlogic-${kernel}.tar.gz"
@@ -43,7 +43,7 @@ openclash_iptables="coreutils-nohup bash iptables dnsmasq-full curl ca-certifica
 my_packages="${unused_packages} luci-theme-material luci-theme-argon luci-app-argon-config luci-app-ttyd luci-app-openclash luci-app-passwall luci-app-shutdown luci-app-netmon luci-app-zerotier luci-app-base64 luci-app-adguardhome luci-app-vnstat2 lsblk nano htop openssh-sftp-server ${driver_packages} ${openclash_iptables}"
 
 # config img
-zero="immortalwrt-${releases}-${amlogic}-${kernel}.img"
+zero="openwrt-${releases}-${amlogic}-${kernel}.img"
 
 # file system type
 bootfs="fat32"
@@ -134,7 +134,7 @@ finish_build () {
     umount ${bootfs_path}
     umount ${rootfs_path}
     losetup -D && sleep 10
-    gzip immortalwrt-*
+    gzip openwrt-*
 }
 
 download_imagebuilder
