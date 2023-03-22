@@ -57,7 +57,7 @@ error_msg() {
 
 download_imagebuilder () {
     wget ${imagebuilder_repo} || error_msg
-    tar -xJf openwrt-imagebuilder-* && rm -f immortalwrt-imagebuilder-*.tar.xz
+    tar -xJf openwrt-imagebuilder-* && rm -f openwrt-imagebuilder-*.tar.xz
     mv -f openwrt-imagebuilder-* ${openwrt_dir}
 }
 
