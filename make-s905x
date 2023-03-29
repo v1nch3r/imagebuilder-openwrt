@@ -11,7 +11,7 @@ bootfs_path="${make_path}/${bootfs_dir}"
 rootfs_path="${make_path}/${rootfs_dir}"
 
 # targets
-releases="21.02.5"
+releases="19.07.7"
 targets="armvirt"
 amlogic="s905x"
 kernel="6.0.5-flippy-78+"
@@ -30,7 +30,6 @@ clash="https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-
 clash_tun="https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.18.gz"
 clash_meta="https://github.com/djoeni/Clash.Meta/releases/download/Prerelease-WSS/Clash.Meta-linux-arm64-36e3318.gz"
 speedtest_repo="https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-aarch64.tgz"
-kmod_inet_diag="https://github.com/${username}/kmod-inet-diag/releases/download/v21.02.5-armvirt/kmod-inet-diag_5.4.215-1_aarch64_cortex-a53.ipk"
 luci_app_openclash="https://github.com/vernesong/OpenClash/releases/download/v0.45.103-beta/luci-app-openclash_0.45.103-beta_all.ipk"
 luci_app_netmon="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-netmon_1.3_all.ipk"
 luci_app_shutdown="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-shutdown_1.3_all.ipk"
@@ -71,7 +70,6 @@ custom_packages () {
     wget -P ${imagebuilder_path}/packages/ ${luci_app_base64} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_adguardhome} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_zerotier} || error_msg
-    wget -P ${imagebuilder_path}/packages/ ${kmod_inet_diag} || error_msg
 }
 
 build_rootfs () {
