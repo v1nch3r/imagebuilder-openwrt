@@ -30,6 +30,7 @@ clash="https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-
 clash_tun="https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.18.gz"
 clash_meta="https://github.com/djoeni/Clash.Meta/releases/download/Prerelease-WSS/Clash.Meta-linux-arm64-36e3318.gz"
 speedtest_repo="https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-aarch64.tgz"
+# kmod_inet_diag="https://github.com/${username}/kmod-inet-diag/releases/download/v21.02.5-armvirt/kmod-inet-diag_5.4.215-1_aarch64_cortex-a53.ipk"
 luci_app_openclash="https://github.com/vernesong/OpenClash/releases/download/v0.45.103-beta/luci-app-openclash_0.45.103-beta_all.ipk"
 luci_app_netmon="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-netmon_1.3_all.ipk"
 luci_app_shutdown="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-shutdown_1.3_all.ipk"
@@ -42,7 +43,7 @@ luci_app_zerotier="https://github.com/rufengsuixing/luci-app-zerotier/releases/d
 unused_packages="-dnsmasq"
 driver_packages="kmod-usb-net-cdc-ether usb-modeswitch comgt-ncm kmod-usb-net-huawei-cdc-ncm"
 openclash_iptables="coreutils-nohup bash iptables dnsmasq-full curl ca-certificates ipset ip-full iptables-mod-tproxy iptables-mod-extra libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag unzip luci-compat luci luci-base"
-my_packages="${unused_packages} luci-theme-material luci-app-ttyd luci-app-openclash luci-app-shutdown luci-app-netmon luci-app-zerotier luci-app-base64 luci-app-adguardhome luci-app-vnstat2 luci-app-sqm sqm-scripts lsblk nano htop openssh-sftp-server ${driver_packages} ${openclash_iptables}"
+my_packages="${unused_packages} luci-theme-material luci-app-ttyd luci-app-openclash luci-app-shutdown luci-app-zerotier luci-app-base64 luci-app-adguardhome luci-app-vnstat luci-app-sqm sqm-scripts lsblk nano htop openssh-sftp-server ${driver_packages} ${openclash_iptables}"
 
 # config img
 zero="openwrt-${releases}-${amlogic}-${kernel}.img"
@@ -64,12 +65,13 @@ download_imagebuilder () {
 
 custom_packages () {
     wget -P ${imagebuilder_path}/packages/ ${luci_app_openclash} || error_msg
-    wget -P ${imagebuilder_path}/packages/ ${luci_app_netmon} || error_msg
+#    wget -P ${imagebuilder_path}/packages/ ${luci_app_netmon} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_shutdown} || error_msg
-    wget -P ${imagebuilder_path}/packages/ ${luci_app_tinyfm} || error_msg
+#    wget -P ${imagebuilder_path}/packages/ ${luci_app_tinyfm} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_base64} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_adguardhome} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_zerotier} || error_msg
+#    wget -P ${imagebuilder_path}/packages/ ${kmod_inet_diag} || error_msg
 }
 
 build_rootfs () {
