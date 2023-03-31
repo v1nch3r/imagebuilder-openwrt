@@ -74,7 +74,7 @@ custom_packages () {
     wget -P ${imagebuilder_path}/packages/ ${luci_app_adguardhome} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_zerotier} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${kmod_inet_diag} || error_msg
-    svn co ${luci-app-passwall2} ${imagebuilder_path}/packages/ || error_msg
+    svn co ${luci_app_passwall2} ${imagebuilder_path}/packages/ || error_msg
 }
 
 build_rootfs () {
