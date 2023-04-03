@@ -51,7 +51,7 @@ xmm_modem="https://github.com/${username}/xmm-modem/releases/download/21.02.5-ar
 unused_packages="-dnsmasq"
 usb_support="usb-modeswitch xmm-modem chat comgt-ncm kmod-mii kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-serial-qualcomm kmod-usb-acm kmod-usb-net kmod-usb-net-qmi-wwan kmod-usb-net-cdc-ncm kmod-usb-net-huawei-cdc-ncm kmod-usb-net-cdc-ether kmod-usb-net-rndis kmod-usb-net-cdc-mbim"
 openclash_iptables="coreutils-nohup bash iptables dnsmasq-full curl ca-certificates ipset ip-full iptables-mod-tproxy iptables-mod-extra libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag unzip luci-compat luci luci-base"
-my_packages="${unused_packages} luci-theme-material luci-theme-argon luci-app-argon-config luci-app-ttyd luci-app-openclash luci-app-passwall luci-app-passwall2 luci-app-shutdown luci-app-netmon luci-app-zerotier luci-app-base64 luci-app-adguardhome luci-app-3ginfo-lite luci-app-atinout-mod luci-app-vnstat2 luci-app-sqm sqm-scripts usbutils lsblk nano htop openssh-sftp-server ${usb_support} ${openclash_iptables}"
+my_packages="${unused_packages} luci-theme-material luci-theme-argon luci-app-argon-config luci-app-ttyd luci-app-openclash luci-app-passwall2 luci-app-shutdown luci-app-netmon luci-app-zerotier luci-app-base64 luci-app-adguardhome luci-app-3ginfo-lite luci-app-atinout-mod luci-app-vnstat2 luci-app-sqm sqm-scripts usbutils lsblk nano htop openssh-sftp-server ${usb_support} ${openclash_iptables}"
 
 # config img
 zero="openwrt-${releases}-${amlogic}-${kernel}.img"
