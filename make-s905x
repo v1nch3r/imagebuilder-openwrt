@@ -83,7 +83,7 @@ custom_packages () {
     wget -P ${imagebuilder_path}/packages/ ${luci_theme_argon} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_argon_config} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_3ginfo_lite} || error_msg
-    wget -P ${imagebuilder_path}/packages/ ${sms-tool} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${sms_tool} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_atinout_mod} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${atinout} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${kmod_inet_diag} || error_msg
