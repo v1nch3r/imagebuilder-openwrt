@@ -45,7 +45,7 @@ luci_app_3ginfo_lite="https://github.com/${username}/luci-app-3ginfo-lite/releas
 sms_tool="https://github.com/${username}/luci-app-3ginfo-lite/releases/download/21.02.5-armvirt64/sms-tool_2022-03-21-f07699ab-1_aarch64_cortex-a53.ipk"
 luci_app_atinout_mod="https://github.com/${username}/luci-app-atinout-mod/releases/download/21.02.5-armvirt64/luci-app-atinout-mod_1.3.2-20220315_all.ipk"
 atinout="https://github.com/${username}/luci-app-atinout-mod/releases/download/21.02.5-armvirt64/atinout_0.9.1_aarch64_cortex-a53.ipk"
-xmm-modem="https://github.com/${username}/xmm-modem/releases/download/21.02.5-armvirt64/xmm-modem_0.0.1-4_all.ipk"
+xmm_modem="https://github.com/${username}/xmm-modem/releases/download/21.02.5-armvirt64/xmm-modem_0.0.1-4_all.ipk"
 
 # config package
 unused_packages="-dnsmasq"
@@ -87,7 +87,7 @@ custom_packages () {
     wget -P ${imagebuilder_path}/packages/ ${sms_tool} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${luci_app_atinout_mod} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${atinout} || error_msg
-    wget -P ${imagebuilder_path}/packages/ ${xmm-modem} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${xmm_modem} || error_msg
     wget -P ${imagebuilder_path}/packages/ ${kmod_inet_diag} || error_msg
     svn co ${luci_app_passwall2} ${imagebuilder_path}/packages/ || error_msg
 }
