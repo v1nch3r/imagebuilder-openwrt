@@ -9,4 +9,7 @@ uci commit system
 chmod +x /usr/bin/luci-app-atinout
 chmod +x /sbin/set_at_port.sh
 
+# Add auto clearcache crontabs
+echo "0 * * * * /bin/clearcache.sh" >> /etc/crontabs/root
+
 exit 0
