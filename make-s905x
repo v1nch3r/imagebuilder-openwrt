@@ -140,6 +140,7 @@ adjustment_rootfs () {
     cd ${kernel}/ && rm *
     find ./ -type f -name '*.ko' -exec ln -s {} ./ \;
     mv -f ${make_path}/uci-defaults/* ${rootfs_path}/etc/uci-defaults/
+    mv -f ${make_path}/custom-files/clearcache.sh ${rootfs_path}/bin/
     wget -P ${make_path}/ ${speedtest_repo} || error_msg
     tar -xzvf ${make_path}/*.tgz -C ${rootfs_path}/bin/
     rm -f ${make_path}/*.tgz && rm -f ${rootfs_path}/bin/speedtest.*
