@@ -22,7 +22,7 @@ username="v1nch3r"
 
 # config repo
 imagebuilder_repo="https://downloads.openwrt.org/releases/${releases}/targets/${targets}/64/openwrt-imagebuilder-${releases}-${targets}-64.Linux-x86_64.tar.xz"
-bootloader_repo="https://raw.githubusercontent.com/ophub/amlogic-s9xxx-armbian/main/build-armbian/u-boot/amlogic/overload/u-boot-p212.bin"
+bootloader_repo="https://raw.githubusercontent.com/${username}/amlogic-s9xxx/main/u-boot/u-boot-p212.bin"
 boot_repo="https://github.com/${username}/kernel/releases/download/${kernel}/boot-${kernel}.tar.gz"
 dtb_repo="https://github.com/${username}/kernel/releases/download/${kernel}/dtb-amlogic-${kernel}.tar.gz"
 modules_repo="https://github.com/${username}/kernel/releases/download/${kernel}/modules-${kernel}.tar.gz"
