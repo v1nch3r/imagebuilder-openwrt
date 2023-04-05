@@ -1,0 +1,181 @@
+#!/bin/sh
+#==========================================================
+
+# config path
+make_path="$(pwd)"
+openwrt_dir="openwrt"
+imagebuilder_path="${make_path}/${openwrt_dir}"
+bootfs_dir="BOOTFS"
+rootfs_dir="ROOTFS"
+bootfs_path="${make_path}/${bootfs_dir}"
+rootfs_path="${make_path}/${rootfs_dir}"
+
+# targets
+releases="21.02.5"
+targets="armvirt"
+amlogic="s905x2"
+kernel="6.2.2-sibondt"
+bootloader_bin="u-boot.bin"
+bootloader_ext="u-boot.ext"
+dtb_targets="meson-g12a-zte-fj.dtb"
+username="v1nch3r"
+
+# config repo
+imagebuilder_repo="https://downloads.openwrt.org/releases/${releases}/targets/${targets}/64/openwrt-imagebuilder-${releases}-${targets}-64.Linux-x86_64.tar.xz"
+bootloader_repo="https://raw.githubusercontent.com/${username}/amlogic-s9xxx/main/u-boot/u-boot-u212.bin"
+boot_repo="https://github.com/${username}/kernel/releases/download/${kernel}/boot-${kernel}.tar.gz"
+dtb_repo="https://github.com/${username}/kernel/releases/download/${kernel}/dtb-amlogic-${kernel}.tar.gz"
+modules_repo="https://github.com/${username}/kernel/releases/download/${kernel}/modules-${kernel}.tar.gz"
+clash="https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-arm64-v1.13.0.gz"
+clash_tun="https://github.com/Dreamacro/clash/releases/download/premium/clash-linux-arm64-2023.03.18.gz"
+clash_meta="https://github.com/djoeni/Clash.Meta/releases/download/Prerelease-WSS/Clash.Meta-linux-arm64-36e3318.gz"
+speedtest_repo="https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-aarch64.tgz"
+kmod_inet_diag="https://github.com/${username}/kmod-inet-diag/releases/download/v21.02.5-armvirt/kmod-inet-diag_5.4.215-1_aarch64_cortex-a53.ipk"
+luci_app_passwall2="https://github.com/v1nch3r/passwall-binaries/branches/master/v21.02.5/aarch64_cortex-a53/"
+luci_theme_argon="https://downloads.immortalwrt.org/releases/21.02.5/packages/aarch64_cortex-a53/luci/luci-theme-argon_2.2.9.5_all.ipk"
+luci_app_argon_config="https://downloads.immortalwrt.org/releases/21.02.5/packages/aarch64_cortex-a53/luci/luci-app-argon-config_0.9_all.ipk"
+luci_app_openclash="https://github.com/vernesong/OpenClash/releases/download/v0.45.103-beta/luci-app-openclash_0.45.103-beta_all.ipk"
+luci_app_netmon="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-netmon_1.3_all.ipk"
+luci_app_shutdown="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-shutdown_1.3_all.ipk"
+luci_app_tinyfm="https://github.com/helmiau/helmiwrt-packages/releases/download/ipk/luci-app-tinyfm_2.5_all.ipk"
+luci_app_base64="https://raw.githubusercontent.com/noct99/blog.vpngame.com/main/luci-app-base64_1.0_all.ipk"
+luci_app_adguardhome="https://github.com/rufengsuixing/luci-app-adguardhome/releases/download/1.8-11/luci-app-adguardhome_1.8-11_all.ipk"
+luci_app_zerotier="https://github.com/rufengsuixing/luci-app-zerotier/releases/download/1.0-16/luci-app-zerotier_1.0-16_all.ipk"
+# luci_app_3ginfo_lite="https://github.com/${username}/luci-app-3ginfo-lite/releases/download/21.02.5-armvirt64/luci-app-3ginfo-lite_1.0.39-20230321_all.ipk"
+# sms_tool="https://github.com/${username}/luci-app-3ginfo-lite/releases/download/21.02.5-armvirt64/sms-tool_2022-03-21-f07699ab-1_aarch64_cortex-a53.ipk"
+luci_app_modeminfo="https://github.com/v1nch3r/luci-app-modeminfo/releases/download/21.02.5-armvirt64/luci-app-modeminfo_0.3.1-0_all.ipk"
+modeminfo="https://github.com/v1nch3r/luci-app-modeminfo/releases/download/21.02.5-armvirt64/modeminfo_0.3.2-2_all.ipk"
+luci_app_atinout_mod="https://github.com/${username}/luci-app-atinout-mod/releases/download/21.02.5-armvirt64/luci-app-atinout-mod_1.3.2-20220315_all.ipk"
+atinout="https://github.com/${username}/luci-app-atinout-mod/releases/download/21.02.5-armvirt64/atinout_0.9.1_aarch64_cortex-a53.ipk"
+xmm_modem="https://github.com/${username}/xmm-modem/releases/download/21.02.5-armvirt64/xmm-modem_0.0.1-4_all.ipk"
+
+# config package
+unused_packages="-dnsmasq"
+usb_support="usb-modeswitch xmm-modem chat comgt-ncm kmod-mii kmod-usb-wdm kmod-usb-serial kmod-usb-serial-option kmod-usb-serial-wwan kmod-usb-serial-qualcomm kmod-usb-acm kmod-usb-net kmod-usb-net-qmi-wwan kmod-usb-net-cdc-ncm kmod-usb-net-huawei-cdc-ncm kmod-usb-net-cdc-ether kmod-usb-net-rndis kmod-usb-net-cdc-mbim"
+openclash_iptables="coreutils-nohup bash iptables dnsmasq-full curl ca-certificates ipset ip-full iptables-mod-tproxy iptables-mod-extra libcap libcap-bin ruby ruby-yaml kmod-tun kmod-inet-diag unzip luci-compat luci luci-base"
+my_packages="${unused_packages} luci-theme-material luci-theme-argon luci-app-argon-config luci-app-ttyd luci-app-openclash luci-app-passwall2 luci-app-shutdown luci-app-netmon luci-app-zerotier luci-app-base64 luci-app-adguardhome luci-app-modeminfo luci-app-atinout-mod luci-app-vnstat2 luci-app-sqm sqm-scripts luci-proto-qmi luci-proto-modemmanager modemmanager qmi-utils uqmi umbim usbutils lsblk nano htop openssh-sftp-server ${usb_support} ${openclash_iptables}"
+
+# config img
+zero="openwrt-${releases}-${amlogic}-${kernel}.img"
+
+# file system type
+bootfs="fat32"
+rootfs="btrfs"
+
+error_msg() {
+    echo -e "${ERROR} ${1}"
+    exit 1
+}
+
+download_imagebuilder () {
+    wget ${imagebuilder_repo} || error_msg
+    tar -xJf openwrt-imagebuilder-* && rm -f openwrt-imagebuilder-*.tar.xz
+    mv -f openwrt-imagebuilder-* ${openwrt_dir}
+#    mv -f custom-files/repositories.conf ${imagebuilder_path}
+    sed -i "s|CONFIG_TARGET_ROOTFS_PARTSIZE=104|CONFIG_TARGET_ROOTFS_PARTSIZE=800|g" ${imagebuilder_path}/.config || error_msg
+}
+
+custom_packages () {
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_openclash} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_netmon} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_shutdown} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_tinyfm} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_base64} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_adguardhome} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_zerotier} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_theme_argon} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_argon_config} || error_msg
+ #   wget -P ${imagebuilder_path}/packages/ ${luci_app_3ginfo_lite} || error_msg
+ #   wget -P ${imagebuilder_path}/packages/ ${sms_tool} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_modeminfo} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${modeminfo} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${luci_app_atinout_mod} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${atinout} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${xmm_modem} || error_msg
+    wget -P ${imagebuilder_path}/packages/ ${kmod_inet_diag} || error_msg
+    svn co ${luci_app_passwall2} ${imagebuilder_path}/packages/ || error_msg
+}
+
+build_rootfs () {
+    cd ${imagebuilder_path}
+    make image PROFILE="Default" PACKAGES="${my_packages}" FILES="files" || error_msg
+    cd ${make_path}
+}
+
+build_img () {
+    dd if=/dev/zero of=${zero} bs=1M count=1500 status=progress
+    parted -s ${zero} mklabel msdos
+    parted -s ${zero} mkpart primary ${bootfs} 1 255
+    parted -s ${zero} mkpart primary ${rootfs} 255 1573
+}
+
+format_img () {
+    loop_new="$(losetup -P -f --show "${zero}")"
+    mkfs.vfat ${loop_new}p1
+    mkfs.btrfs -f ${loop_new}p2
+    fatlabel ${loop_new}p1 BOOT
+    btrfs filesystem label ${loop_new}p2 ROOTFS
+    losetup -D && sleep 10 && losetup -P -f ${zero}
+}
+
+adjustment_bootfs () {
+    mkdir -p ${bootfs_dir} && mkdir -p ${rootfs_dir}
+    mount ${loop_new}p1 ${bootfs_dir}/
+    mount ${loop_new}p2 ${rootfs_dir}/
+    tar -xzvf ${make_path}/*.tar.gz -C ${bootfs_path}/
+    rm -f ${make_path}/*.tar.gz
+    wget -P ${bootfs_path}/dtb/amlogic/ ${dtb_repo} || error_msg
+    wget -P ${bootfs_path}/ ${boot_repo} || error_msg
+    wget -O ${bootfs_path}/${bootloader_ext} ${bootloader_repo} || error_msg
+    tar -xzvf ${bootfs_path}/dtb/amlogic/*.tar.gz -C ${bootfs_path}/dtb/amlogic/
+    rm -f ${bootfs_path}/dtb/amlogic/*.tar.gz
+    tar -xzvf ${bootfs_path}/*.tar.gz -C ${bootfs_path}/
+    rm -f ${bootfs_path}/*.tar.gz
+    sed -i "s|zImage|vmlinuz-${kernel}|g" ${bootfs_path}/uEnv.txt
+    sed -i "s|uInitrd|uInitrd-${kernel}|g" ${bootfs_path}/uEnv.txt
+    sed -i "s|custom.dtb|${dtb_targets}|g" ${bootfs_path}/uEnv.txt
+}
+
+adjustment_rootfs () {
+    tar -xzvf ${imagebuilder_path}/bin/targets/${targets}/64/*-default-rootfs.tar.gz -C ${rootfs_path}/
+    cd ${rootfs_path}/lib/modules && rm -r *
+    wget ${modules_repo} || error_msg
+    tar -xzvf *.tar.gz && rm -f *.tar.gz
+    cd */ && rm *
+    find ./ -type f -name '*.ko' -exec ln -s {} ./ \;
+    mv -f ${make_path}/uci-defaults/* ${rootfs_path}/etc/uci-defaults/
+    mv -f ${make_path}/custom-files/clearcache.sh ${rootfs_path}/bin/
+    wget -P ${make_path}/ ${speedtest_repo} || error_msg
+    tar -xzvf ${make_path}/*.tgz -C ${rootfs_path}/bin/
+    rm -f ${make_path}/*.tgz && rm -f ${rootfs_path}/bin/speedtest.*
+}
+
+adding_clash_core () {
+    cd ${rootfs_path}/etc/openclash/core/
+    wget ${clash} && gunzip *.gz || error_msg
+    mv -f clash-* clash && rm -f *.gz
+    wget ${clash_tun} && gunzip *.gz || error_msg
+    mv -f clash-* clash_tun && rm -f *.gz
+    wget ${clash_meta} && gunzip *.gz || error_msg
+    mv -f Clash.* clash_meta && rm -f *.gz
+}
+
+finish_build () {
+    cd ${make_path}
+    umount ${bootfs_path}
+    umount ${rootfs_path}
+    losetup -D && sleep 10
+    gzip openwrt-*
+}
+
+download_imagebuilder
+custom_packages
+build_rootfs
+build_img
+format_img
+adjustment_bootfs
+adjustment_rootfs
+adding_clash_core
+finish_build
+
+exit 0
