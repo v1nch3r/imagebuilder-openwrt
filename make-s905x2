@@ -43,11 +43,11 @@ luci_app_adguardhome="https://github.com/rufengsuixing/luci-app-adguardhome/rele
 luci_app_zerotier="https://github.com/rufengsuixing/luci-app-zerotier/releases/download/1.0-16/luci-app-zerotier_1.0-16_all.ipk"
 # luci_app_3ginfo_lite="https://github.com/${username}/luci-app-3ginfo-lite/releases/download/21.02.5-armvirt64/luci-app-3ginfo-lite_1.0.39-20230321_all.ipk"
 # sms_tool="https://github.com/${username}/luci-app-3ginfo-lite/releases/download/21.02.5-armvirt64/sms-tool_2022-03-21-f07699ab-1_aarch64_cortex-a53.ipk"
-luci_app_modeminfo="https://github.com/v1nch3r/luci-app-modeminfo/releases/download/21.02.5-armvirt64/luci-app-modeminfo_0.3.1-0_all.ipk"
-modeminfo="https://github.com/v1nch3r/luci-app-modeminfo/releases/download/21.02.5-armvirt64/modeminfo_0.3.2-2_all.ipk"
-luci_app_atinout_mod="https://github.com/${username}/luci-app-atinout-mod/releases/download/21.02.5-armvirt64/luci-app-atinout-mod_1.3.2-20220315_all.ipk"
-atinout="https://github.com/${username}/luci-app-atinout-mod/releases/download/21.02.5-armvirt64/atinout_0.9.1_aarch64_cortex-a53.ipk"
-xmm_modem="https://github.com/${username}/xmm-modem/releases/download/21.02.5-armvirt64/xmm-modem_0.0.1-4_all.ipk"
+luci_app_modeminfo="https://github.com/v1nch3r/modem-support/releases/download/21.02.5-generic/luci-app-modeminfo_0.3.1-0_all.ipk"
+modeminfo="https://github.com/v1nch3r/modem-support/releases/download/21.02.5-generic/modeminfo_0.3.2-2_all.ipk"
+luci_app_atinout_mod="https://github.com/v1nch3r/modem-support/releases/download/21.02.5-generic/luci-app-atinout-mod_1.3.2-20220315_all.ipk"
+atinout="https://github.com/v1nch3r/modem-support/releases/download/21.02.5-armvirt64/atinout_0.9.1_aarch64_cortex-a53.ipk"
+xmm_modem="https://github.com/v1nch3r/modem-support/releases/download/21.02.5-generic/xmm-modem_0.0.1-4_all.ipk"
 
 # config package
 unused_packages="-dnsmasq"
