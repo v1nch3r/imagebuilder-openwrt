@@ -10,7 +10,7 @@ chmod +x /usr/bin/luci-app-atinout
 chmod +x /sbin/set_at_port.sh
 
 # Add auto clearcache crontabs
-chmod +x /bin/clearcache.sh
-echo "0 * * * * /bin/clearcache.sh" >> /etc/crontabs/root
+chmod +x /sbin/clearcache.sh
+echo "0 * * * * /sbin/clearcache.sh" >> /etc/crontabs/root
 
 exit 0
