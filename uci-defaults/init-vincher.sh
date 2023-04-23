@@ -3,6 +3,9 @@
 # Set Timezone to Asia/Jakarta
 uci set system.@system[0].timezone='WIB-7'
 uci set system.@system[0].zonename='Asia/Jakarta'
+
+# Set Hostname to Vincherwrt
+uci set system.@system[0].hostname='VincherWrt'
 uci commit system
 
 # Fix luci-app-atinout-mod
