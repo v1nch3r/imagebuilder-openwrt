@@ -16,12 +16,15 @@ jobs:
         run: |
           sudo chmod +x make-s905x
           sudo ./make-s905x
+          sudo timedatectl set-timezone Asia/Jakarta
+          echo "build_tag=VincherWrt-21.02.5-s905x-$(date +"%Y.%m.%d")" >> ${GITHUB_OUTPUT}
+          echo "status=success" >> ${GITHUB_OUTPUT}
       
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: VincherWrt-21.02.5-s905x-$(date +"%Y.%m.%d")
+          tag: ${{ steps.compile.outputs.build_tag }}
           artifacts: "*.img.gz"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
