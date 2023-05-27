@@ -19,7 +19,6 @@ jobs:
           sudo timedatectl set-timezone Asia/Jakarta
           echo "BUILD_TAG=VincherWrt-21.02.5-s905x-$(date +"%Y.%m.%d")" >> ${GITHUB_ENV}
  
-
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
