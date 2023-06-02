@@ -30,6 +30,7 @@ clash="https://github.com/Dreamacro/clash/releases/download/v1.16.0/clash-linux-
 clash_tun="https://release.dreamacro.workers.dev/2023.05.19/clash-linux-arm64-2023.05.19.gz"
 clash_meta="https://github.com/djoeni/Clash.Meta/releases/download/Prerelease-WSS/Clash.Meta-linux-arm64-36e3318.gz"
 speedtest_repo="https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-aarch64.tgz"
+neofetch_repo="https://raw.githubusercontent.com/dylanaraps/neofetch/master/neofetch"
 kmod_inet_diag="https://github.com/${username}/kmod-inet-diag/releases/download/v21.02.5-armvirt/kmod-inet-diag_5.4.215-1_aarch64_cortex-a53.ipk"
 luci_app_passwall2="https://github.com/v1nch3r/passwall-binaries/branches/master/v21.02.5/aarch64_cortex-a53/"
 luci_theme_argon="https://github.com/v1nch3r/openwrt-packages/releases/download/generic/luci-theme-argon_2.2.9.5_all.ipk"
@@ -158,6 +159,7 @@ adjustment_rootfs () {
     wget -P ${make_path}/ ${speedtest_repo} || error_msg
     tar -xzvf ${make_path}/*.tgz -C ${rootfs_path}/bin/
     rm -f ${make_path}/*.tgz && rm -f ${rootfs_path}/bin/speedtest.*
+    wget -P ${rootfs_path}/bin/ ${neofetch_repo} || error_msg
 }
 
 adding_clash_core () {
