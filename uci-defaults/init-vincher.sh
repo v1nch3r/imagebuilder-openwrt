@@ -12,6 +12,9 @@ uci commit system
 chmod +x /usr/bin/luci-app-atinout
 chmod +x /sbin/set_at_port.sh
 
+# Fix neofetch Permissions
+chmod +x /bin/neofetch
+
 # Add auto clearcache crontabs
 chmod +x /sbin/clearcache.sh
 echo "0 * * * * /sbin/clearcache.sh" >> /etc/crontabs/root
