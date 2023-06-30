@@ -22,7 +22,7 @@ jobs:
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: VincherWrt-20.02.5
+          tag: VincherWrt-21.02.5
           artifacts: "*.img.gz"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
