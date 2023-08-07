@@ -18,12 +18,14 @@ jobs:
           sudo apt install qemu-utils mkisofs -y
           sudo chmod +x make-x86_64
           sudo ./make-x86_64
+          sudo timedatectl set-timezone Asia/Jakarta
+          echo "BUILD_TAG=VincherWrt-21.02.5-x86_64-$(date +"%Y.%m.%d")" >> ${GITHUB_ENV}
       
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
-          tag: 21.02.5-x86_64
+          tag: ${{ env.BUILD_TAG }}
           artifacts: "openwrt/bin/targets/x86/64/*"
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
